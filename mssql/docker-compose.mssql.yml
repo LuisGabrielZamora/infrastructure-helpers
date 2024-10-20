@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  mssql_local_db:
+    build:
+      context: .
+      dockerfile: mssql-db.Dockerfile
+    container_name: mssql_local_db
+    restart: always
+    networks:
+      - mssql_network
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./mssql/data:/var/opt/mssql/data
+      - ./mssql/log:/var/opt/mssql/log
+      - ./mssql/secrets:/var/opt/mssql/secrets
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "r00tp4ssw0rd"
+      MSSQL_PID: "Express"
+
+networks:
+  mssql_network:
+    external: true
