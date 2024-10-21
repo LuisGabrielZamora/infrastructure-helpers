@@ -46,7 +46,9 @@ The PostgreSQL setup includes PGAdmin for managing the database via a web interf
 - External Port: `5432`
 - PgAdmin Access: <http://localhost:5050>
 
-To run Mysql, execute:
+To configure an initial database, the parameter: `POSTGRES_DB=""` into the `.env.postgresql` file, needs to be uncommented and configured.
+
+To run Postgresql, execute:
 
 ``` sh
 docker compose -f postgresql/docker-compose.postgresql.yml up -d

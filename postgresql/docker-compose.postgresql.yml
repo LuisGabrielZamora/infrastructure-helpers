@@ -1,21 +1,23 @@
 version: '3.9'
 
 services:
-  bulk-loader-database:
+  postgresql-database:
     image: postgres:16.3-alpine3.19
-    container_name: bulk-loader-database
+    container_name: postgresql-database
     restart: always
     ports:
       - "5432:5432"
-    env_file:
-      - .env.postgresql
+    environment:
+      POSTGRES_PASSWORD: ${PG_DB_PASSWORD}
+      POSTGRES_DB: ${PG_DB_NAME}
+      POSTGRES_USER: ${PG_DB_USER}
     volumes:
       - ./postgresql_data:/var/lib/postgresql/data
 
   pg-admin:
     depends_on:
-      - bulk-loader-database
-    image: dpage/pgadmin4:8.2
+      - postgresql-database
+    image: dpage/pgadmin4:8.12
     container_name: pg-admin
     restart: always
     ports:
